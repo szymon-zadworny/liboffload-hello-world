@@ -7,6 +7,11 @@ The SPIR-V was extracted from the
 [sycl-spirv-hello-world](https://github.com/szymon-zadworny/sycl-spirv-hello-world/tree/offload)
 repository.
 
+> [!NOTE]
+> The liboffload error handling was omitted to keep the example brief. See
+> [libsycl](https://github.com/llvm/llvm-project/blob/main/libsycl/src/detail/offload/offload_utils.hpp)
+> for an example of how to handle errors.
+
 ## Development environment
 This repository provides a liboffload development environment Nix flake. You can use it with:
 
