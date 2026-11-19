@@ -21,6 +21,8 @@ int main(void) {
   }
 
   ol_device_handle_t device = result.device;
+  printf("Found device: [%s]\n", getTmpDeviceNameStr(device));
+
   bool isValid;
   olIsValidBinary(device, binary_image, sizeof(binary_image), &isValid);
 
