@@ -1,20 +1,20 @@
-#include <stdio.h>
 #include <offload/OffloadAPI.h>
+#include <stdio.h>
+
+#include "utils.h"
 
 static const unsigned char binary_image[] = {
-    #embed "image.bin"
+#embed "image.bin"
 };
 
 int main(void) {
-    olInit(nullptr);
+  olInit(nullptr);
 
-    printf("Image size: %lu bytes\n\n", sizeof(binary_image));
+  DeviceSelectResult result = findGpuDevice();
 
-    for (size_t i = 0; i < sizeof(binary_image); ++i) {
-        printf("%x ", binary_image[i]);
-    }
+  if (result.tag == Ok) {
+    printf("Found device: [%s]\n", getTmpDeviceNameStr(result.device));
+  }
 
-    printf("\n");
-
-    olShutDown();
+  olShutDown();
 }

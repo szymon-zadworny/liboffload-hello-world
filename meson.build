@@ -16,7 +16,8 @@ image = custom_target('image',
   command: [find_program('llvm-offload-binary'), '-o', '@OUTPUT@', '--image=file=@INPUT@,triple=spirv64-intel'],
 )
 
-exe = executable('offload-hello-world', 'src/main.c', image,
+exe = executable('offload-hello-world', 'src/main.c', 'src/utils.c', image,
+  include_directories: include_directories('include'),
   c_args: '--embed-dir=' + meson.current_build_dir(),
   dependencies: cc.find_library('LLVMOffload'),
 )
