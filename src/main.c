@@ -56,6 +56,11 @@ int main(void) {
                   &program);
 
   ol_symbol_handle_t kernel;
+  // Kernel signature:
+  // void VectorAdd(struct { int *sum, int *v1, int *v })
+  //
+  // The arguments are wrapped in a structure because this is how upstream SYCL
+  // passes lambda captures to resulting SPIR-V.
   olGetSymbol(program, "VectorAdd", OL_SYMBOL_KIND_KERNEL, &kernel);
 
   ol_kernel_launch_size_args_t launch_size_args = {
@@ -66,6 +71,11 @@ int main(void) {
 
   void *arg_ptrs[] = {&args};
   size_t arg_sizes[] = {sizeof(args)};
+
+  // First nullptr specifies the queue handle. Setting the queue to nullptr
+  // means that the kernel launch will happen synchronously.
+  //
+  // The second nullptr specifies optional launch properties.
   olLaunchKernel(nullptr, device, kernel, &launch_size_args, nullptr, 1,
                  arg_ptrs, arg_sizes);
 
