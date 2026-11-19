@@ -17,7 +17,7 @@ bool deviceSelector(ol_device_handle_t device, void *user_data) {
 
   if (device_type == OL_DEVICE_TYPE_GPU &&
       backend == OL_PLATFORM_BACKEND_LEVEL_ZERO) {
-    result->tag = Ok;
+    result->tag = OK;
     result->device = device;
 
     return false;
@@ -27,7 +27,7 @@ bool deviceSelector(ol_device_handle_t device, void *user_data) {
 }
 
 DeviceSelectResult findGpuDevice() {
-  DeviceSelectResult result = {.tag = NotFound};
+  DeviceSelectResult result = {.tag = NOT_FOUND};
 
   olIterateDevices(deviceSelector, &result);
 

@@ -4,8 +4,8 @@
 
 typedef struct {
   enum {
-    Ok,
-    NotFound,
+    OK,
+    NOT_FOUND,
   } tag;
 
   ol_device_handle_t device;

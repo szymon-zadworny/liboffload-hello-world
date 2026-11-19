@@ -14,7 +14,7 @@ int main(void) {
 
   DeviceSelectResult result = findGpuDevice();
 
-  if (result.tag == NotFound) {
+  if (result.tag == NOT_FOUND) {
     fprintf(stderr, "Couldn't find a Level Zero GPU device.\n");
     return 1;
   }
