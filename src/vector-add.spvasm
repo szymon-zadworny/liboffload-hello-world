@@ -1,0 +1,77 @@
+; SPIR-V
+; Version: 1.4
+; Generator: LLVM LLVM SPIR-V Backend; 24
+; Bound: 105
+; Schema: 0
+               OpCapability Kernel
+               OpCapability Addresses
+               OpCapability GenericPointer
+               OpCapability Int64
+               OpCapability Int8
+          %1 = OpExtInstImport "OpenCL.std"
+               OpMemoryModel Physical64 OpenCL
+               OpEntryPoint Kernel %_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ "_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_" %__spirv_BuiltInGlobalInvocationId
+               OpExecutionMode %_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ ContractionOff
+               OpSource OpenCL_CPP 100000
+               OpName %class_anon_0 "class.anon.0"
+               OpName %_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ "_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_"
+               OpName %__spirv_BuiltInGlobalInvocationId "__spirv_BuiltInGlobalInvocationId"
+               OpDecorate %23 Alignment 8
+               OpDecorate %23 FuncParamAttr NoWrite
+               OpDecorate %23 FuncParamAttr NoCapture
+               OpDecorate %23 FuncParamAttr ByVal
+               OpDecorate %__spirv_BuiltInGlobalInvocationId Constant
+               OpDecorate %__spirv_BuiltInGlobalInvocationId BuiltIn GlobalInvocationId
+      %uchar = OpTypeInt 8 0
+%_ptr_Generic_uchar = OpTypePointer Generic %uchar
+%class_anon_0 = OpTypeStruct %_ptr_Generic_uchar %_ptr_Generic_uchar %_ptr_Generic_uchar
+%_ptr_Function_class_anon_0 = OpTypePointer Function %class_anon_0
+       %void = OpTypeVoid
+          %7 = OpTypeFunction %void %_ptr_Function_class_anon_0
+%_ptr_Function__ptr_Generic_uchar = OpTypePointer Function %_ptr_Generic_uchar
+%_ptr_Generic__ptr_Generic_uchar = OpTypePointer Generic %_ptr_Generic_uchar
+       %uint = OpTypeInt 32 0
+%_ptr_Generic_uint = OpTypePointer Generic %uint
+     %uint_4 = OpConstant %uint 4
+%_arr_uchar_uint_4 = OpTypeArray %uchar %uint_4
+%_ptr_Generic__arr_uchar_uint_4 = OpTypePointer Generic %_arr_uchar_uint_4
+      %ulong = OpTypeInt 64 0
+    %v3ulong = OpTypeVector %ulong 3
+%_ptr_Input_v3ulong = OpTypePointer Input %v3ulong
+   %ulong_16 = OpConstant %ulong 16
+   %ulong_32 = OpConstant %ulong 32
+    %ulong_8 = OpConstant %ulong 8
+%_ptr_Generic__ptr_Generic__arr_uchar_uint_4 = OpTypePointer Generic %_ptr_Generic__arr_uchar_uint_4
+%__spirv_BuiltInGlobalInvocationId = OpVariable %_ptr_Input_v3ulong Input
+%_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ = OpFunction %void None %7
+         %23 = OpFunctionParameter %_ptr_Function_class_anon_0
+         %51 = OpLabel
+         %25 = OpBitcast %_ptr_Function__ptr_Generic_uchar %23
+         %26 = OpPtrCastToGeneric %_ptr_Generic__ptr_Generic_uchar %25
+         %27 = OpLoad %v3ulong %__spirv_BuiltInGlobalInvocationId
+         %28 = OpCompositeExtract %ulong %27 0
+         %29 = OpBitcast %_ptr_Generic_uchar %26
+         %30 = OpInBoundsPtrAccessChain %_ptr_Generic_uchar %29 %ulong_8
+         %31 = OpBitcast %_ptr_Generic__ptr_Generic_uchar %30
+         %32 = OpBitcast %_ptr_Generic__ptr_Generic__arr_uchar_uint_4 %31
+         %33 = OpLoad %_ptr_Generic__arr_uchar_uint_4 %32 Aligned 8
+         %34 = OpShiftLeftLogical %ulong %28 %ulong_32
+         %35 = OpShiftRightArithmetic %ulong %34 %ulong_32
+         %36 = OpInBoundsPtrAccessChain %_ptr_Generic__arr_uchar_uint_4 %33 %35
+         %37 = OpBitcast %_ptr_Generic_uint %36
+         %38 = OpLoad %uint %37 Aligned 4
+         %39 = OpInBoundsPtrAccessChain %_ptr_Generic_uchar %29 %ulong_16
+         %40 = OpBitcast %_ptr_Generic__ptr_Generic_uchar %39
+         %41 = OpBitcast %_ptr_Generic__ptr_Generic__arr_uchar_uint_4 %40
+         %42 = OpLoad %_ptr_Generic__arr_uchar_uint_4 %41 Aligned 8
+         %43 = OpInBoundsPtrAccessChain %_ptr_Generic__arr_uchar_uint_4 %42 %35
+         %44 = OpBitcast %_ptr_Generic_uint %43
+         %45 = OpLoad %uint %44 Aligned 4
+         %46 = OpIAdd %uint %45 %38
+         %47 = OpBitcast %_ptr_Generic__ptr_Generic__arr_uchar_uint_4 %26
+         %48 = OpLoad %_ptr_Generic__arr_uchar_uint_4 %47 Aligned 8
+         %49 = OpInBoundsPtrAccessChain %_ptr_Generic__arr_uchar_uint_4 %48 %35
+         %50 = OpBitcast %_ptr_Generic_uint %49
+               OpStore %50 %46 Aligned 4
+               OpReturn
+               OpFunctionEnd
