@@ -40,6 +40,8 @@ int main(void) {
     int *v2;
   } args;
 
+  // We use OL_ALLOC_TYPE_MANAGED to allocate memory visible on both host and
+  // device.
   olMemAlloc(context, device, OL_ALLOC_TYPE_MANAGED, ALLOC_SZ * sizeof(int),
              (void **)&args.sum);
 
@@ -60,7 +62,7 @@ int main(void) {
 
   ol_symbol_handle_t kernel;
   // Kernel signature:
-  // void VectorAdd(struct { int *sum, int *v1, int *v })
+  // void VectorAdd(struct { int *sum; int *v1; int *v2; })
   //
   // The arguments are wrapped in a structure because this is how upstream SYCL
   // passes lambda captures to resulting SPIR-V.
