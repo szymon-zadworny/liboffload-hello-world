@@ -4,6 +4,7 @@
 #include "utils.h"
 
 #define ALLOC_SZ 1024
+#define GROUP_SZ 16
 
 static const unsigned char binary_image[] = {
 #embed "image.bin"
@@ -65,8 +66,8 @@ int main(void) {
 
   ol_kernel_launch_size_args_t launch_size_args = {
       .Dimensions = 1,
-      .NumGroups = {.x = 64, .y = 1, .z = 1},
-      .GroupSize = {.x = 16, .y = 1, .z = 1},
+      .NumGroups = {.x = ALLOC_SZ / GROUP_SZ, .y = 1, .z = 1},
+      .GroupSize = {.x = GROUP_SZ, .y = 1, .z = 1},
       .DynSharedMemory = 0};
 
   void *arg_ptrs[] = {&args};
