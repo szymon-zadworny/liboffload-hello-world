@@ -1,27 +1,31 @@
 # liboffload hello world
 
-An upstream LLVM liboffload development environment for Intel GPUs through the Level Zero plugin.
+This repository contains a liboffload SPIR-V kernel launch example written in C. This example only
+works on Level Zero backends.
+
+The SPIR-V was extracted from the
+[sycl-spirv-hello-world](https://github.com/szymon-zadworny/sycl-spirv-hello-world/tree/offload)
+repository.
 
 ## Development environment
-This repository provides an upstream LLVM liboffload development environment Nix flake. You can use
-it with:
+This repository provides a liboffload development environment Nix flake. You can use it with:
 
 ```bash
 nix develop
 ```
 
 ## Build instructions
-The build expects the program in `src/main.c`. First you have to set up the build directory.
-Execute this from the repository root:
+You can compile the program with:
 
 ```bash
 meson setup build
+meson compile -C build
 ```
 
-You can then compile the program:
+You can then run it with:
 
-| Target | Command                  | Output                      |
-| ------ | ------------------------ | --------------------------- |
-| ELF    | `meson compile -C build` | `build/offload-hello-world` |
+```bash
+./build/offload-hello-world
+```
 
 Set `OFFLOAD_TRACE=1` to trace liboffload API calls.
