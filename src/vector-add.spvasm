@@ -10,11 +10,11 @@
                OpCapability Int8
           %1 = OpExtInstImport "OpenCL.std"
                OpMemoryModel Physical64 OpenCL
-               OpEntryPoint Kernel %_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ "_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_" %__spirv_BuiltInGlobalInvocationId
-               OpExecutionMode %_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ ContractionOff
+               OpEntryPoint Kernel %VectorAdd "VectorAdd" %__spirv_BuiltInGlobalInvocationId
+               OpExecutionMode %VectorAdd ContractionOff
                OpSource OpenCL_CPP 100000
                OpName %class_anon_0 "class.anon.0"
-               OpName %_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ "_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_"
+               OpName %VectorAdd "VectorAdd"
                OpName %__spirv_BuiltInGlobalInvocationId "__spirv_BuiltInGlobalInvocationId"
                OpDecorate %23 Alignment 8
                OpDecorate %23 FuncParamAttr NoWrite
@@ -43,7 +43,7 @@
     %ulong_8 = OpConstant %ulong 8
 %_ptr_Generic__ptr_Generic__arr_uchar_uint_4 = OpTypePointer Generic %_ptr_Generic__arr_uchar_uint_4
 %__spirv_BuiltInGlobalInvocationId = OpVariable %_ptr_Input_v3ulong Input
-%_ZTSZ4mainEUlN4sycl4__V07nd_itemILi1EEEE_ = OpFunction %void None %7
+%VectorAdd = OpFunction %void None %7
          %23 = OpFunctionParameter %_ptr_Function_class_anon_0
          %51 = OpLabel
          %25 = OpBitcast %_ptr_Function__ptr_Generic_uchar %23
