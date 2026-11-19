@@ -12,8 +12,18 @@ int main(void) {
 
   DeviceSelectResult result = findGpuDevice();
 
-  if (result.tag == Ok) {
-    printf("Found device: [%s]\n", getTmpDeviceNameStr(result.device));
+  if (result.tag == NotFound) {
+    fprintf(stderr, "Couldn't find a Level Zero GPU device.\n");
+    return 1;
+  }
+
+  ol_device_handle_t device = result.device;
+  bool isValid;
+  olIsValidBinary(device, binary_image, sizeof(binary_image), &isValid);
+
+  if (!isValid) {
+    fprintf(stderr, "The provided binary cannot be loaded onto the device.\n");
+    return 2;
   }
 
   olShutDown();
