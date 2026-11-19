@@ -1,6 +1,6 @@
 #include "utils.h"
 
-bool deviceSelector(ol_device_handle_t device, void *user_data) {
+static bool deviceSelector(ol_device_handle_t device, void *user_data) {
   DeviceSelectResult *result = user_data;
 
   ol_device_type_t device_type;
