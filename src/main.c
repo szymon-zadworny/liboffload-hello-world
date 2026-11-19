@@ -31,27 +31,55 @@ int main(void) {
   ol_context_handle_t context;
   olCreateContext(1, &device, &context);
 
-  void *tmp;
+  struct {
+    int *sum;
+    int *v1;
+    int *v2;
+  } args;
 
-  int *v1;
   olMemAlloc(context, device, OL_ALLOC_TYPE_MANAGED, ALLOC_SZ * sizeof(int),
-             &tmp);
-  v1 = tmp;
+             (void **)&args.sum);
 
-  int *v2;
   olMemAlloc(context, device, OL_ALLOC_TYPE_MANAGED, ALLOC_SZ * sizeof(int),
-             &tmp);
-  v2 = tmp;
+             (void **)&args.v1);
 
-  int *v3;
   olMemAlloc(context, device, OL_ALLOC_TYPE_MANAGED, ALLOC_SZ * sizeof(int),
-             &tmp);
-  v3 = tmp;
+             (void **)&args.v2);
 
   for (int i = 0; i < ALLOC_SZ; ++i) {
-    v1[i] = i;
-    v2[i] = ALLOC_SZ - i;
+    args.v1[i] = i;
+    args.v2[i] = ALLOC_SZ - i;
   }
 
+  ol_program_handle_t program;
+  olCreateProgram(context, device, binary_image, sizeof(binary_image),
+                  &program);
+
+  ol_symbol_handle_t kernel;
+  olGetSymbol(program, "VectorAdd", OL_SYMBOL_KIND_KERNEL, &kernel);
+
+  ol_kernel_launch_size_args_t launch_size_args = {
+      .Dimensions = 1,
+      .NumGroups = {.x = 64, .y = 1, .z = 1},
+      .GroupSize = {.x = 16, .y = 1, .z = 1},
+      .DynSharedMemory = 0};
+
+  void *arg_ptrs[] = {&args};
+  size_t arg_sizes[] = {sizeof(args)};
+  olLaunchKernel(nullptr, device, kernel, &launch_size_args, nullptr, 1,
+                 arg_ptrs, arg_sizes);
+
+  for (int i = 0; i < ALLOC_SZ; ++i) {
+    printf("%d ", args.sum[i]);
+  }
+
+  printf("\n");
+
+  olMemFree(context, args.sum);
+  olMemFree(context, args.v1);
+  olMemFree(context, args.v2);
+
+  olDestroyProgram(program);
+  olDestroyContext(context);
   olShutDown();
 }
